@@ -1,10 +1,11 @@
 import { FC, useEffect, useState } from 'react'
-import { fetchData, Jobs } from './api_functions/fetchData'
+import { fetchData, Job } from './api_functions/fetchData'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import JobsPage from './pages/JobsPage';
+import JobInfoPage from './pages/JobInfoPage';
 
 const App: FC = () => {
-  const [jobs, setJobs] = useState<Jobs[]>([])
+  const [jobs, setJobs] = useState<Job[]>([])
   useEffect(()=>{
       fetchData().then(res => {
       setJobs(res)
@@ -15,6 +16,7 @@ const App: FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<JobsPage jobs={jobs}/>}/>
+        <Route path='/:id' element={<JobInfoPage jobs={jobs} />} />
       </Routes>
     </BrowserRouter>
     // <div className="font-bold">DAsdsadas</div>

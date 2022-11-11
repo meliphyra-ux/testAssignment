@@ -1,19 +1,19 @@
 import { FC, useEffect, useState } from "react";
-import { Jobs } from "../api_functions/fetchData";
+import { Job } from "../api_functions/fetchData";
 import JobBlock from "../components/JobBlock";
 
-interface JobsPageProps {
-  jobs: Jobs[];
+export interface JobPagesProps {
+  jobs: Job[];
 }
 
-const JobsPage: FC<JobsPageProps> = ({ jobs }) => {
+const JobsPage: FC<JobPagesProps> = ({ jobs }) => {
   const [page, setPage] = useState<number>(1);
   const [pageCounter, setPageCounter] = useState<number[]>([]);
-  const [displayedJobs, setDisplayedJobs] = useState<Jobs[]>([]);
+  const [displayedJobs, setDisplayedJobs] = useState<Job[]>([]);
 
   useEffect(() => {
-    const startDisplayedItems = (page - 1) * 15
-    const endDisplayedItems = (page - 1) * 15 + 15
+    const startDisplayedItems = (page - 1) * 15;
+    const endDisplayedItems = (page - 1) * 15 + 15;
     setDisplayedJobs([...jobs.slice(startDisplayedItems, endDisplayedItems)]);
   }, [page, jobs]);
 
@@ -25,10 +25,11 @@ const JobsPage: FC<JobsPageProps> = ({ jobs }) => {
   }, [jobs]);
 
   return (
-    <div className="w-full flex items-center flex-col bg-[#F5F5F5]">
+    <main className="w-full flex items-center flex-col bg-[#F5F5F5] min-h-screen">
       {displayedJobs.map((job) => (
         <JobBlock
           key={job.id}
+          id={job.id}
           pictrure={job.pictures[0]}
           title={job.title}
           name={job.name}
@@ -38,12 +39,24 @@ const JobsPage: FC<JobsPageProps> = ({ jobs }) => {
       ))}
       <div className="flex flex-row justify-center">
         {pageCounter.map((pageButton) => (
-          <p className={`p-2 ${page === pageButton ? 'border-b-2 border-blue-500' : ' ' }`} key={pageButton} onClick={() => setPage(pageButton)}>
+          <p
+            className={`p-2 ${
+              page === pageButton ? "border-b-2 border-blue-500" : " "
+            }`}
+            key={pageButton}
+            onClick={() => {
+              setPage(pageButton)
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+              })
+            }}
+          >
             {pageButton}
           </p>
         ))}
       </div>
-    </div>
+    </main>
   );
 };
 
