@@ -13,7 +13,7 @@ const JobInfoPage: FC<JobPagesProps> = ({ jobs }) => {
   const [jobInfo, setJobInfo] = useState<Job | null>(null);
   const [createdDaysAgo, setCreatedDaysAgo] = useState<number>(0);
   const applyButtonStyling =
-    "px-[30px] py-[18px] text-white bg-[#384564] rounded-lg";
+    "px-[30px] py-[18px] text-white bg-[#384564] rounded-lg text-center";
   const sectionHeader = "font-bold text-2xl";
   useEffect(() => {
     setJobInfo(jobs.filter((job) => job.id === id)[0]);
@@ -29,8 +29,19 @@ const JobInfoPage: FC<JobPagesProps> = ({ jobs }) => {
     };
   }, [jobInfo]);
   return (
-    <div className="flex justify-center pt-[56px] ">
-      <div className="text-[#3A4562] max-w-[774px] mr-[82px]">
+    <div
+      className="
+    justify-center
+    flex xl:flex-row xl:pt-[56px] xl:px-[5%] xl:items-start
+    flex-col pt-6 px-4 items-center
+    "
+    >
+      <div
+        className="
+      xl:mr-[82px] 
+      text-[#3A4562] max-w-[774px] w-full
+      "
+      >
         <header className="border-b-[1px] flex justify-between items-center">
           <h2 className="font-bold text-[28px]">Job details</h2>
           <div className="flex justify-between">
@@ -38,18 +49,39 @@ const JobInfoPage: FC<JobPagesProps> = ({ jobs }) => {
             <button>Share</button>
           </div>
         </header>
-        <main className="mt-10">
-          <button className={`${applyButtonStyling} mb-8`}>Apply now</button>
-          <div className="flex justify-between">
+        <main
+          className="mt-10
+        xl:block
+        w-full
+        "
+        >
+          <button
+            className={`
+          xl:block
+          ${applyButtonStyling} mb-8 hidden
+          `}
+          >
+            Apply now
+          </button>
+          <div className="flex flex-row justify-between relative">
             <h3 className={`${sectionHeader} max-w-[500px]`}>
               {jobInfo?.title}
             </h3>
-            <div>
+            <div
+              className="
+            xl:static
+            absolute bottom-[-57px] right-0 
+            "
+            >
               <h3 className="font-bold">€{jobInfo?.salary}</h3>
               <p>Brutto, per year</p>
             </div>
           </div>
-          <p className="text-[#878D9D] my-[7px]">
+          <p
+            className="
+          xl:my-[7px] 
+          my-[23px] text-[#878D9D] "
+          >
             {"Created " +
               `${
                 createdDaysAgo < 365
@@ -58,9 +90,11 @@ const JobInfoPage: FC<JobPagesProps> = ({ jobs }) => {
               }`}
           </p>
           <p>{jobInfo?.description}</p>
-          <button className={`${applyButtonStyling} mt-[24px] mb-[104px]`}>
-            Apply now
-          </button>
+          <div className="xl:block flex justify-center">
+            <button className={`${applyButtonStyling} mt-[24px] mb-[104px]`}>
+              Apply now
+            </button>
+          </div>
           <h2 className={`${sectionHeader} border-b-[1px]`}>Additional info</h2>
           {jobInfo !== null ? (
             <>
@@ -85,14 +119,22 @@ const JobInfoPage: FC<JobPagesProps> = ({ jobs }) => {
           <h2 className={`${sectionHeader} mt-[87px] border-b-[1px]`}>
             Attached Images
           </h2>
-          <div className="flex max-w-full mt-[12px]">
-            {jobInfo?.pictures.map((picture) => (
+          <div className="
+          max-w-full mt-[12px]
+          xl:overflow-visible
+          overflow-scroll
+          mb-[30px]
+          flex flex-row
+          ">
+            {jobInfo?.pictures.map((picture, index) => (
               <LazyLoadImage
-                key={picture}
+                key={picture + index}
                 width={210}
                 effect="blur"
-                wrapperClassName="mr-2"
-                className="aspect-video rounded-lg object-cover object-center"
+                wrapperClassName="mr-2 flex-none"
+                className="
+                aspect-video rounded-lg object-cover object-center
+                "
                 src={picture}
                 alt="Attached images"
               />

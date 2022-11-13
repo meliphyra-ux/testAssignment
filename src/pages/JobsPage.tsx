@@ -25,7 +25,8 @@ const JobsPage: FC<JobPagesProps> = ({ jobs }) => {
   }, [jobs]);
 
   return (
-    <main className="w-full flex items-center flex-col bg-[#F5F5F5] min-h-screen">
+    <main className="w-full flex items-center flex-col bg-[#F5F5F5] min-h-screen xl:p-6 pb-3"
+    >
       {displayedJobs.map((job) => (
         <JobBlock
           key={job.id}
@@ -48,7 +49,7 @@ const JobsPage: FC<JobPagesProps> = ({ jobs }) => {
               setPage(pageButton)
               window.scrollTo({
                 top: 0,
-                behavior: "smooth"
+                behavior:"auto"
               })
             }}
           >
