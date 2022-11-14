@@ -64,14 +64,14 @@ const JobsPage: FC<JobPagesProps> = ({ jobs }) => {
         }}
       >
         <p
-          className="border-r-2 pl-2 pr-4 mr-2 "
+          className="border-r-2 pl-2 pr-4 mr-2 cursor-pointer"
           onClick={() => previousPage()}
         >
           {"<"}
         </p>
         {pageCounter.map((pageButton) => (
           <p
-            className={`py-2 px-4 text-[20px] font-bold align-middle  border-b-2 ${
+            className={`py-2 px-4 text-[20px] font-bold align-middle border-b-2 cursor-pointer ${
               page === pageButton
                 ? " border-blue-500 text-blue-500"
                 : "border-white"
@@ -82,7 +82,7 @@ const JobsPage: FC<JobPagesProps> = ({ jobs }) => {
             {pageButton}
           </p>
         ))}
-        <p className="border-l-2 pl-4 pr-2 ml-2" onClick={() => nextPage()}>
+        <p className="border-l-2 pl-4 pr-2 ml-2 cursor-pointer" onClick={() => nextPage()}>
           {">"}
         </p>
       </div>
